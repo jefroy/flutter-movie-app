@@ -3,6 +3,8 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../models/search_category.dart';
+
 class MainPage extends ConsumerWidget {
   late double _deviceHeight;
   late double _deviceWidth;
@@ -18,12 +20,12 @@ class MainPage extends ConsumerWidget {
 
   Widget _buildUI() {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: Colors.black,
       body: Container(
         height: _deviceHeight,
         width: _deviceWidth,
         child: Stack(
-          // put widgets one on top the other
           alignment: Alignment.center,
           children: [
             _backgroundWidget(),
@@ -57,14 +59,18 @@ class MainPage extends ConsumerWidget {
 
   Widget _foregroundWidgets() {
     return Container(
-      padding: EdgeInsets.fromLTRB(0, _deviceHeight * 0.02, 0, 0),
-      width: _deviceWidth * 0.88,
+      padding: EdgeInsets.fromLTRB(0, _deviceHeight! * 0.02, 0, 0),
+      width: _deviceWidth! * 0.88,
       child: Column(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          _topBarWidget()
+          _topBarWidget(),
+          Container(
+            height: _deviceHeight! * 0.83,
+            padding: EdgeInsets.symmetric(vertical: _deviceHeight! * 0.01),
+          )
         ],
       ),
     );
@@ -75,7 +81,7 @@ class MainPage extends ConsumerWidget {
    */
   Widget _topBarWidget() {
     return Container(
-      height: _deviceHeight * 0.08,
+      height: _deviceHeight! * 0.08,
       decoration: BoxDecoration(
         color: Colors.black54,
         borderRadius: BorderRadius.circular(20.0),
@@ -86,32 +92,68 @@ class MainPage extends ConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           _searchFieldWidget(),
+          _categorySelectionWidget(),
         ],
       ),
     );
   }
 
   Widget _searchFieldWidget() {
-    var _border = InputBorder.none;
+    final _border = InputBorder.none;
     return Container(
-      width: _deviceWidth * 0.05,
-      height: _deviceHeight * 0.05,
+      width: _deviceWidth! * 0.50,
+      height: _deviceHeight! * 0.05,
       child: TextField(
         controller: _searchTextFieldController,
         onSubmitted: (_input) {},
         style: TextStyle(color: Colors.white),
         decoration: InputDecoration(
-          focusedBorder: _border,
-          border: _border,
-          prefixIcon: Icon(
-            Icons.search,
-            color: Colors.white24,
+            focusedBorder: _border,
+            border: _border,
+            prefixIcon: Icon(Icons.search, color: Colors.white24),
+            hintStyle: TextStyle(color: Colors.white54),
+            filled: false,
+            fillColor: Colors.white24,
+            hintText: 'Search....'),
+      ),
+    );
+  }
+
+  Widget _categorySelectionWidget() {
+    return DropdownButton(
+      items: [
+        DropdownMenuItem(
+          child: Text(
+            SearchCategory.popular,
+            style: TextStyle(color: Colors.white),
           ),
-          hintStyle: TextStyle(color: Colors.white54),
-          filled: false,
-          fillColor: Colors.white24,
-          hintText: 'Search...',
+          value: SearchCategory.popular,
         ),
+        DropdownMenuItem(
+          child: Text(
+            SearchCategory.upcoming,
+            style: TextStyle(color: Colors.white),
+          ),
+          value: SearchCategory.upcoming,
+        ),
+        DropdownMenuItem(
+          child: Text(
+            SearchCategory.none,
+            style: TextStyle(color: Colors.white),
+          ),
+          value: SearchCategory.none,
+        ),
+      ],
+      onChanged: (_value) {},
+      dropdownColor: Colors.black38,
+      value: SearchCategory.popular,
+      icon: Icon(
+        Icons.menu,
+        color: Colors.white24,
+      ),
+      underline: Container(
+        height: 1,
+        color: Colors.white24,
       ),
     );
   }
