@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:movie_app/models/movie.dart';
 
 import '../models/search_category.dart';
 
@@ -70,6 +71,7 @@ class MainPage extends ConsumerWidget {
           Container(
             height: _deviceHeight! * 0.83,
             padding: EdgeInsets.symmetric(vertical: _deviceHeight! * 0.01),
+            child: _moviesListViewWidget(),
           )
         ],
       ),
@@ -156,5 +158,32 @@ class MainPage extends ConsumerWidget {
         color: Colors.white24,
       ),
     );
+  }
+
+  Widget _moviesListViewWidget() {
+    final List<Movie> _movies = [];
+
+    if (_movies.length != 0) {
+      return ListView.builder(
+        itemCount: _movies.length,
+        itemBuilder: (BuildContext _context, int _count) {
+          return Padding(
+            padding: EdgeInsets.symmetric(
+              vertical:  _deviceHeight * 0.01, horizontal: 0,
+            ),
+            child: GestureDetector(
+              onTap: () {},
+              child: Text(_movies[_count].name),
+            ),
+          );
+        },
+      );
+    } else {
+      return Center(
+        child: CircularProgressIndicator(
+          backgroundColor: Colors.white,
+        ),
+      );
+    }
   }
 }
