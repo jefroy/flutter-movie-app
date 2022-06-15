@@ -6,6 +6,9 @@ import 'package:movie_app/models/movie.dart';
 
 import '../models/search_category.dart';
 
+// widgets
+import '../widgets/movie_tile.dart';
+
 class MainPage extends ConsumerWidget {
   late double _deviceHeight;
   late double _deviceWidth;
@@ -169,11 +172,16 @@ class MainPage extends ConsumerWidget {
         itemBuilder: (BuildContext _context, int _count) {
           return Padding(
             padding: EdgeInsets.symmetric(
-              vertical:  _deviceHeight * 0.01, horizontal: 0,
+              vertical: _deviceHeight * 0.01,
+              horizontal: 0,
             ),
             child: GestureDetector(
               onTap: () {},
-              child: Text(_movies[_count].name),
+              child: MovieTile(
+                height: _deviceHeight,
+                width: _deviceWidth,
+                movie: _movies[_count],
+              ),
             ),
           );
         },
