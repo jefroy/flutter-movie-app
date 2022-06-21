@@ -63,8 +63,8 @@ class MainPage extends ConsumerWidget {
 
   Widget _foregroundWidgets() {
     return Container(
-      padding: EdgeInsets.fromLTRB(0, _deviceHeight! * 0.02, 0, 0),
-      width: _deviceWidth! * 0.88,
+      padding: EdgeInsets.fromLTRB(0, _deviceHeight* 0.02, 0, 0),
+      width: _deviceWidth* 0.88,
       child: Column(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.end,
@@ -72,8 +72,8 @@ class MainPage extends ConsumerWidget {
         children: [
           _topBarWidget(),
           Container(
-            height: _deviceHeight! * 0.83,
-            padding: EdgeInsets.symmetric(vertical: _deviceHeight! * 0.01),
+            height: _deviceHeight* 0.83,
+            padding: EdgeInsets.symmetric(vertical: _deviceHeight* 0.01),
             child: _moviesListViewWidget(),
           )
         ],
@@ -86,7 +86,7 @@ class MainPage extends ConsumerWidget {
    */
   Widget _topBarWidget() {
     return Container(
-      height: _deviceHeight! * 0.08,
+      height: _deviceHeight* 0.08,
       decoration: BoxDecoration(
         color: Colors.black54,
         borderRadius: BorderRadius.circular(20.0),
@@ -106,8 +106,8 @@ class MainPage extends ConsumerWidget {
   Widget _searchFieldWidget() {
     final _border = InputBorder.none;
     return Container(
-      width: _deviceWidth! * 0.50,
-      height: _deviceHeight! * 0.05,
+      width: _deviceWidth* 0.50,
+      height: _deviceHeight* 0.05,
       child: TextField(
         controller: _searchTextFieldController,
         onSubmitted: (_input) {},
