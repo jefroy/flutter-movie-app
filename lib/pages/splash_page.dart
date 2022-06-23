@@ -31,8 +31,8 @@ class _SplashPageState extends State<SplashPage> {
   void initState() {
     super.initState();
     Future.delayed(Duration(seconds: 1)).then(
-          (_) => _setup(context).then(
-            (_) => widget.onInitializationComplete(),
+      (_) => _setup(context).then(
+        (_) => widget.onInitializationComplete(),
       ),
     );
   }
@@ -58,13 +58,12 @@ class _SplashPageState extends State<SplashPage> {
     getIt.registerSingleton<MovieService>(
       MovieService(),
     );
-
   }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'JJs Movies',
+      title: 'Flickd',
       theme: ThemeData(primarySwatch: Colors.blue),
       home: Center(
         child: Container(
@@ -73,7 +72,7 @@ class _SplashPageState extends State<SplashPage> {
           decoration: BoxDecoration(
             image: DecorationImage(
               fit: BoxFit.contain,
-              image: AssetImage('assets/images/logo.jpg'),
+              image: AssetImage('assets/images/logo.png'),
             ),
           ),
         ),
